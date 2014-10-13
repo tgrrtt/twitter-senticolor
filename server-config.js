@@ -12,8 +12,6 @@ var T = new Twit({
   access_token_secret: secrets.accessTokenSecret
 });
 
-app.get('/', function(req, res) {
-  res.send('hello world');
-});
+app.use(express.static(__dirname + '/dist'));
 
 module.exports = app;

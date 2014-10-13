@@ -19,7 +19,10 @@
     "mocha": "^1.17.1",
     "request": "^2.34.0",
     "sentiment": "^1.0.2",
-    "twit": "^1.1.18"
+    "twit": "^1.1.18",
+    "grunt-contrib-copy": "^0.6.0",
+    "load-grunt-tasks": "^0.6.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+  }
 }
