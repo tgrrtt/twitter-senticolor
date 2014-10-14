@@ -4,15 +4,21 @@ app.controller("hashtagSentimentController", ["$scope", "Sentiment",
   function($scope, Sentiment) {
     $scope.search = '';
     $scope.nowTracking = "#sentiment";
-    $scope.backgroundColor = '';
+    $scope.myStyle = '';
+    $scope.backgroundColor;
     $scope.sentilyze = function(){
+      // initiate sentiment lookup for the passed in string.
       Sentiment.searchForThing('{"search": "' + $scope.search + '"}')
-      .then(function(data) {
-        console.log(data);
+      .then(function(data) { 
+        // set the displayed hashtag thing to what the sentiment is being displayed for
         $scope.nowTracking = $scope.search;
-        Sentiment.sentiToColor(data.score, function(color){ 
-          $scope.backgroundColor = color;
+        // find out the color that the background should be set to
+        // uses comparative
+        console.log(data);
+        Sentiment.sentiToColor(data.comparative, function(color){
           console.log(color);
+          $scope.backgroundColor = {'background-color': color};
+          // console.log(color);
         })
       })
     }; 
@@ -21,32 +27,29 @@ app.controller("hashtagSentimentController", ["$scope", "Sentiment",
 
 app.factory("Sentiment", ["$http", function($http){
   // fetch function goes here
-  var sentiToColor = function(sentimentNumber, callback) {
+  var sentiToColor = function(comparativeNum, callback) {
     // is negative? set flag.
-    console.log(sentimentNumber);
+    console.log(comparativeNum);
     var isNegative = false;
-    var green = 128;
-    var red = 128;
+    var green = 0;
+    var red = 0;
     var toRgb = 0;
-    if (sentimentNumber < 0) {
+    var alpha = 0;
+    if (comparativeNum < 0) {
       isNegative = true; 
-      sentimentNumber = Math.abs(sentimentNumber);
-    }
-    // absolute value, then multiply times 1.27
-    toRgb = 1.27 * sentimentNumber;
+      comparativeNum = Math.abs(comparativeNum);
+    } 
     if (!isNegative) {
-      green += toRgb;
-      red -= toRgb;
-    } else {
-      green -= toRgb;
-      red += toRgb;
+      green = 255; 
+    } else { 
+      red = 255;
     }
-    callback('rgb('+red+ ','+green+',0)');
-    // if positive, add to green val, subtract from red val
-    // if neg, do reverse.  add those to rgb string, return that
-    
-    // return color
+    // create a new alpha level based on comparative num
+    alpha = 1 * comparativeNum;
+
+    callback('rgba('+red+ ','+green+',0,'+alpha+')');   
   }
+
   var searchForThing = function(searchItem){
     return $http({
       method: 'POST',

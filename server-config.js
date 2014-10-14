@@ -21,15 +21,20 @@ app.post('/', function(req, res) {
   // get the specified search term, and look up its history 
   var toSearchFor = req.body.search;
     
-  T.get('search/tweets', { q: toSearchFor + ' lang=en ', count: 100 }, function(err, data, response) {
+  T.get('search/tweets', { q: toSearchFor, count: 100}, function(err, data, response) {
+    // console.log(toSearchFor);
     // data.statuses contains all tweets
+    if (err) {
+      console.log(err);
+    }
     // d.s[i].text will be the actual tweet
+    // console.log(data.statuses);
     var tweetMsg = '';
     for (var i = 0; i < data.statuses.length; i++) {
-   
-      tweetMsg += data.statuses[i].text;  
-      
+      // console.log(data.statuses[i]);
+      tweetMsg += data.statuses[i].text; 
     }
+    // console.log(tweetMsg);
     var sentiScore = JSON.stringify(sentiment(tweetMsg));
     //console.log(typeof sentiScore, sentiScore);
     res.end(sentiScore);

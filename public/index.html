@@ -2,9 +2,10 @@
 <html ng-app="hashtagSentiment">
   <head>
     <meta charset="utf-8"> 
-    <meta name="description" content="">  
+    <meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
-  <body ng-controller="hashtagSentimentController" ng-style="{'background-color': backgroundColor}">
+  <body ng-controller="hashtagSentimentController" ng-style="backgroundColor">
     <h1> {{ nowTracking }}</h1>
     <form novalidate>
       <input type="text" ng-model="search" name="searchField" value="" placeholder="supdog">
