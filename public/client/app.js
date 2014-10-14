@@ -51,7 +51,7 @@ app.factory("Sentiment", ["$http", function($http){
       red = 255;
     }
     // create a new alpha level based on comparative num
-    alpha = 0.07 + (1 * comparativeNum);
+    alpha = 2.3 * comparativeNum;
     if (alpha > 1) {
       alpha = 1;
     }
