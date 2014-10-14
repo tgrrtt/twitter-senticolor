@@ -14,10 +14,15 @@ app.controller("hashtagSentimentController", ["$scope", "Sentiment",
         $scope.nowTracking = $scope.search;
         // find out the color that the background should be set to
         // uses comparative
-        console.log(data);
+
         Sentiment.sentiToColor(data.comparative, function(color){
-          console.log(color);
-          $scope.backgroundColor = {'background-color': color};
+
+          $scope.backgroundColor = {'background-color': color,
+          '-webkit-transition': 'background-color 1300ms linear',
+          '-moz-transition': 'background-color 1300ms linear',
+          '-o-transition': 'background-color 1300ms linear',
+          '-ms-transition': 'background-color 1300ms linear',
+          'transition': 'background-color 1300ms linear'}
           // console.log(color);
         })
       })
@@ -29,7 +34,7 @@ app.factory("Sentiment", ["$http", function($http){
   // fetch function goes here
   var sentiToColor = function(comparativeNum, callback) {
     // is negative? set flag.
-    console.log(comparativeNum);
+    // console.log(comparativeNum);
     var isNegative = false;
     var green = 0;
     var red = 0;
@@ -45,7 +50,10 @@ app.factory("Sentiment", ["$http", function($http){
       red = 255;
     }
     // create a new alpha level based on comparative num
-    alpha = 1 * comparativeNum;
+    alpha = 0.07 + (1 * comparativeNum);
+    if (alpha > 1) {
+      alpha = 1;
+    }
 
     callback('rgba('+red+ ','+green+',0,'+alpha+')');   
   }
