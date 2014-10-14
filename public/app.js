@@ -3,7 +3,7 @@ var app = angular.module("hashtagSentiment", []);
 app.controller("hashtagSentimentController", ["$scope", "Sentiment",
   function($scope, Sentiment) {
     $scope.search = '';
-    $scope.nowTracking = 'sentiment';
+    $scope.nowTracking = 'twitter sentiment';
     $scope.myStyle = '';
     $scope.backgroundColor;
     $scope.sentilyze = function(){
