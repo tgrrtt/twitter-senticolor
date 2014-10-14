@@ -12,12 +12,6 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 
-// console.log(process.env.NODE_ENV);
-// console.log(process.env.C_KEY);
-// console.log(process.env.C_SECRET);
-// console.log(process.env.A_TOKEN);
-// console.log(process.env.A_TOKEN_SECRET);
-
 var T = new Twit({
   consumer_key: process.env.C_KEY || secrets.consumerKey,
   consumer_secret: process.env.C_SECRET || secrets.consumerSecret,
