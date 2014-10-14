@@ -3,7 +3,7 @@ var app = angular.module("hashtagSentiment", []);
 app.controller("hashtagSentimentController", ["$scope", "Sentiment",
   function($scope, Sentiment) {
     $scope.search = '';
-    $scope.nowTracking = "#sentiment";
+    $scope.nowTracking = 'sentiment';
     $scope.myStyle = '';
     $scope.backgroundColor;
     $scope.sentilyze = function(){
@@ -12,6 +12,7 @@ app.controller("hashtagSentimentController", ["$scope", "Sentiment",
       .then(function(data) { 
         // set the displayed hashtag thing to what the sentiment is being displayed for
         $scope.nowTracking = $scope.search;
+        $scope.search = null
         // find out the color that the background should be set to
         // uses comparative
 

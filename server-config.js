@@ -19,27 +19,27 @@ var T = new Twit({
   access_token_secret: process.env.A_TOKEN_SECRET || secrets.accessTokenSecret
 });
 
-// maybe app should just post to firebase?
+
 app.post('/', function(req, res) {  
   // get the specified search term, and look up its history 
   var toSearchFor = req.body.search;
     
   T.get('search/tweets', { q: toSearchFor, count: 100}, function(err, data, response) {
-    // console.log(toSearchFor);
+
     // data.statuses contains all tweets
     if (err) {
       console.log(err);
     }
     // d.s[i].text will be the actual tweet
-    // console.log(data.statuses);
+
     var tweetMsg = '';
     for (var i = 0; i < data.statuses.length; i++) {
-      // console.log(data.statuses[i]);
+
       tweetMsg += data.statuses[i].text; 
     }
-    // console.log(tweetMsg);
+
     var sentiScore = JSON.stringify(sentiment(tweetMsg));
-    //console.log(typeof sentiScore, sentiScore);
+
     res.end(sentiScore);
   });
 });
@@ -47,10 +47,5 @@ app.post('/', function(req, res) {
 app.get('/');
 
 app.use(express.static(__dirname + '/dist'));
-
-// on firebase change, get latest change
-// delete the old one
-// run sentiment analysis on the new one
-// upload the data for that back to firebase
 
 module.exports = app;

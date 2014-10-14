@@ -15,5 +15,38 @@ body, html {
   vertical-align: middle;
 }
 h1 {
-  margin-top: 0px;
+  color: white;
+  margin-top: 0;
+  font-size: 3em;
 }
+
+input[type=submit] {
+  padding: 10px 15px;
+  font-size: 1.2em;
+  display: block;
+  margin: 20px auto;
+  color: white;
+  background-color: #dadada;
+  border-radius: 4px;
+  border: 0 solid white;
+  box-shadow: 0 3px 0 0 #bbb;
+}
+
+input[type=submit]:hover {
+
+  background-color: #ddd;
+  border-radius: 4px;
+  border: 0 solid rgb(109, 125, 210);
+
+}
+/*.button(@alphaColor, @trueColor, @shadowColor, @shadowSize) {
+    text-align: center;
+    background-color: @alphaColor;
+    border-radius: 5px;
+    box-shadow: 0 @shadowSize 0 0 @shadowColor;
+    .quick-background-transition;
+    &:hover {
+        background-color: @trueColor;
+    }
+}
+*/
