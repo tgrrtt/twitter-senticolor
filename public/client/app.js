@@ -2,16 +2,32 @@ var app = angular.module("hashtagSentiment", []);
 
 app.controller("hashtagSentimentController", ["$scope", "Sentiment",
   function($scope, Sentiment) {
-    $scope.search;
+    $scope.search = '';
+    $scope.nowTracking = "#sentiment";
     $scope.sentilyze = function(){
-      console.log($scope.search);
+      Sentiment.searchForThing('{"search": "' + $scope.search + '"}')
+      .then(function(data) {
+        console.log(data);
+        $scope.nowTracking = $scope.search;
+      })
     };
-    console.log("yo");
-    console.log(Sentiment);
+    
+  
   }
 ]);
 
-app.factory("Sentiment", function(){
+app.factory("Sentiment", ["$http", function($http){
   // fetch function goes here
-  return {stringCheez: "string"} 
-});
+  var searchForThing = function(searchItem){
+    return $http({
+      method: 'POST',
+      url: '/',
+      data: searchItem 
+    })
+    .then(function (resp) {  
+      return resp.data;
+    });
+  };
+  
+  return {searchForThing: searchForThing}; 
+}]);

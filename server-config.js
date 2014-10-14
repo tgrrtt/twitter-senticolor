@@ -17,8 +17,7 @@ var T = new Twit({
 });
 
 // maybe app should just post to firebase?
-app.post('/', function(req, res) { 
-  //console.log(req.body);
+app.post('/', function(req, res) {  
   // get the specified search term, and look up its history 
   var toSearchFor = req.body.search;
     
