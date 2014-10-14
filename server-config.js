@@ -1,19 +1,28 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var sentiment = require('sentiment');
-var secrets = require('./secrets.js');
+
+if (process.env.NODE_ENV !== 'production') {
+  var secrets = require('./secrets.js'); 
+}
 
 var Twit = require('twit');
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
-  
+
+// console.log(process.env.NODE_ENV);
+// console.log(process.env.C_KEY);
+// console.log(process.env.C_SECRET);
+// console.log(process.env.A_TOKEN);
+// console.log(process.env.A_TOKEN_SECRET);
+
 var T = new Twit({
-  consumer_key: secrets.consumerKey,
-  consumer_secret: secrets.consumerSecret,
-  access_token: secrets.accessToken,
-  access_token_secret: secrets.accessTokenSecret
+  consumer_key: process.env.C_KEY || secrets.consumerKey,
+  consumer_secret: process.env.C_SECRET || secrets.consumerSecret,
+  access_token: process.env.A_TOKEN || secrets.accessToken,
+  access_token_secret: process.env.A_TOKEN_SECRET || secrets.accessTokenSecret
 });
 
 // maybe app should just post to firebase?
