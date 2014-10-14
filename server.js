@@ -13,8 +13,7 @@ var Twit = require('twit');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
-
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + '/public'));
 
 var T = new Twit({
   consumer_key: process.env.C_KEY || secrets.consumerKey,
@@ -42,9 +41,9 @@ app.post('/', function(req, res) {
       tweetMsg += data.statuses[i].text; 
     }
 
-    var sentiScore = JSON.stringify(sentiment(tweetMsg));
+    var sentimented = JSON.stringify(sentiment(tweetMsg));
 
-    res.end(sentiScore);
+    res.end(sentimented);
   });
 });
 
@@ -53,4 +52,4 @@ app.post('/', function(req, res) {
 
 app.listen(port);
 
-//console.log('Server now listening on port ' + port);
+console.log("Server is listening on :", port);
