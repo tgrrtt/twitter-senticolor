@@ -1,15 +1,14 @@
 var express = require('express');
-if (!process.env.CONSUMER_KEY) {
-  var secrets = require('./secrets.js')  
-} else {
-  secrets = {//object of env vars
-  }
-}
-var Twit = require('twit');
+var bodyParser = require('body-parser');
 var sentiment = require('sentiment');
+var secrets = require('./secrets.js');
+
+var Twit = require('twit');
 
 var app = express();
-// need to set this stuff as env vars on server
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
+
 var T = new Twit({
   consumer_key: secrets.consumerKey,
   consumer_secret: secrets.consumerSecret,
@@ -17,26 +16,27 @@ var T = new Twit({
   access_token_secret: secrets.accessTokenSecret
 });
 
-// var stream = T.stream('statuses/filter', { track: 'mango', language: 'en' })
-// 
-// stream.on('tweet', function (tweet) {
-//   console.log(tweet.text)
-//   console.log(sentiment(tweet.text));
-// })
-
-T.get('search/tweets', { q: 'radiohead lang=en ', count: 100 }, function(err, data, response) {
-  // data.statuses contains all tweets
-  // d.s[i].text will be the actual tweet
-  var tweetMsg = '';
-  for (var i = 0; i < data.statuses.length; i++) {
- 
-    tweetMsg += data.statuses[i].text;  
-    
-  }
-   console.log(sentiment(tweetMsg).score);
+// maybe app should just post to firebase?
+app.post('/', function(req, res) { 
+  //console.log(req.body);
+  // get the specified search term, and look up its history 
+  var toSearchFor = req.body.search;
+  
+  T.get('search/tweets', { q: toSearchFor + ' lang=en ', count: 100 }, function(err, data, response) {
+    // data.statuses contains all tweets
+    // d.s[i].text will be the actual tweet
+    var tweetMsg = '';
+    for (var i = 0; i < data.statuses.length; i++) {
+   
+      tweetMsg += data.statuses[i].text;  
+      
+    }
+    //console.log(sentiment(tweetMsg).score);
+  });
 });
 
-app.get('/')
+app.get('/');
+
 app.use(express.static(__dirname + '/dist'));
 
 // on firebase change, get latest change
