@@ -30,7 +30,7 @@ app.post('/', function(req, res) {
       tweetMsg += data.statuses[i].text;  
       
     }
-    var sentiScore = sentiment(tweetMsg).score.toString();
+    var sentiScore = JSON.stringify(sentiment(tweetMsg));
     //console.log(typeof sentiScore, sentiScore);
     res.end(sentiScore);
   });
