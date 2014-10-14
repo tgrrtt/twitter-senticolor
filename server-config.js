@@ -8,7 +8,7 @@ var Twit = require('twit');
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
-
+  
 var T = new Twit({
   consumer_key: secrets.consumerKey,
   consumer_secret: secrets.consumerSecret,
@@ -21,7 +21,7 @@ app.post('/', function(req, res) {
   //console.log(req.body);
   // get the specified search term, and look up its history 
   var toSearchFor = req.body.search;
-  
+    
   T.get('search/tweets', { q: toSearchFor + ' lang=en ', count: 100 }, function(err, data, response) {
     // data.statuses contains all tweets
     // d.s[i].text will be the actual tweet
@@ -31,7 +31,9 @@ app.post('/', function(req, res) {
       tweetMsg += data.statuses[i].text;  
       
     }
-    //console.log(sentiment(tweetMsg).score);
+    var sentiScore = sentiment(tweetMsg).score.toString();
+    //console.log(typeof sentiScore, sentiScore);
+    res.end(sentiScore);
   });
 });
 
