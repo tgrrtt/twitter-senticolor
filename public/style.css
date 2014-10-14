@@ -1,137 +1,52 @@
-body {
-  margin: 0;
-  margin-top: 10px;
-  font-family: arial, sans-serif;
+html {
+  background-color: white;
+  font-family: 'Helvetica';
 }
-
-a {
-  color: #333;
-  font-size: 14px;
-  text-decoration: none;
-}
-
-h1 {
-  font-style: italic;
-  margin-bottom: 10px;
-}
-
-.navigation {
-  width: 100%;
-  height: 40px;
-  background-color: #eee;
-}
-
-.navigation ul {
+body, html {
   margin: 0;
   padding: 0;
-  list-style: none;
+  height: 100%;
+  width: 100%;
+  display: table;
 }
-
-.navigation li {
-  float: left;
-}
-
-.navigation .logout {
-  float: right;
-}
-
-.navigation li a , .logout {
-  width: 100px;
-  height: 20px;
-  line-height: 20px;
-  padding: 10px;
-  display: block;
+.container {
+  display: table-cell;
   text-align: center;
+  vertical-align: middle;
+}
+h1 {
+  color: white;
+  margin-top: 0;
+  font-size: 3em;
 }
 
-.navigation li a:hover {
-  background-color: #ddd;
-}
-
-.navigation li a.selected {
-  background-color: #ccc;
-}
-
-#container {
-  clear: both;
-  margin-top: 10px;
-}
-
-.link {
-  clear: both;
-  margin-bottom: 5px;
-  padding: 5px;
-  min-height: 50px;
-}
-
-.link:hover {
-  background-color: #efe;
-}
-
-.link img {
-  float: left;
-  margin: 0 5px;
-}
-
-.link .visits {
-  float: right;
-  margin-right: 10px;
-  margin-left: 20px;
-}
-
-.link .visits .count {
-  font-size: 46px;
-  font-weight: 600;
-}
-
-.link .title {
-  font-weight: 600;
-}
-
-.link .original {
-  color: #aaa;
-  font-size: 12px;
-}
-
-.link .info {
-  margin-left: 55px;
-}
-
-form {
-  margin: 10px;
-}
-
-form input[type=text], form input[type=password] {
-  width: 360px;
+input[type=submit] {
+  padding: 10px 15px;
+  font-size: 1.2em;
   display: block;
-  font-size: 13px;
-  padding: 5px;
-  margin-bottom: 5px;
+  margin: 20px auto;
+  color: white;
+  background-color: #dadada;
+  border-radius: 4px;
+  border: 0 solid white;
+  box-shadow: 0 3px 0 0 #bbb;
 }
 
-.error {
-  background-color: #fee;
-  color: #a33;
-  padding: 10px;
-  margin: 0 10px;
-}
+input[type=submit]:hover {
 
-.creator {
-  height: 50px;
-}
+  background-color: #ddd;
+  border-radius: 4px;
+  border: 0 solid rgb(109, 125, 210);
 
-.creator form {
-  float: left;
-  height: 80px;
 }
-
-.creator img.spinner {
-  height: 46px;
-  margin-bottom: 5px;
-  padding: 10px;
-  display: none;
+/*.button(@alphaColor, @trueColor, @shadowColor, @shadowSize) {
+    text-align: center;
+    background-color: @alphaColor;
+    border-radius: 5px;
+    box-shadow: 0 @shadowSize 0 0 @shadowColor;
+    .quick-background-transition;
+    &:hover {
+        background-color: @trueColor;
+    }
 }
-
-.creator .message {
-  clear: both;
-}
+*/

@@ -2,6 +2,20 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    copy: {
+      main: {
+        files: [
+          // includes files within path
+          {
+            expand: true,
+            cwd: 'public/',
+            src: '**',
+            dest: 'dist/',  
+            filter: 'isFile'
+          }
+        ]
+      }
+    },
     concat: {
       options: {
         // define a string to put between each file in the concatenated output
@@ -72,16 +86,15 @@ module.exports = function(grunt) {
         files: [
           'public/client/**/*.js',
           'public/lib/**/*.js',
+          'public/**/*'
         ],
         tasks: [
-          'jshint',
-          'concat',
-          'uglify'
+        'copy' 
         ]
       },
       css: {
         files: 'public/*.css',
-        tasks: ['cssmin']
+        tasks: []
       }
     },
 
@@ -91,16 +104,9 @@ module.exports = function(grunt) {
     },
   });
 
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-mocha-test');
-  grunt.loadNpmTasks('grunt-shell');
-  grunt.loadNpmTasks('grunt-nodemon');
-
-  grunt.registerTask('server-dev', function (target) {
+  require('load-grunt-tasks')(grunt);
+  
+  grunt.registerTask('serve', function (target) {
     // Running nodejs in a different process and displaying output on the main console
     var nodemon = grunt.util.spawn({
          cmd: 'grunt',
@@ -110,7 +116,7 @@ module.exports = function(grunt) {
     nodemon.stdout.pipe(process.stdout);
     nodemon.stderr.pipe(process.stderr);
 
-    grunt.task.run([ 'watch' ]);
+    grunt.task.run(['watch']);
   });
 
   ////////////////////////////////////////////////////
@@ -122,10 +128,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'jshint',
-    'concat',
-    'uglify',
-    'cssmin'
+    'copy'
   ]);
 
   grunt.registerTask('default', ['build']);
@@ -134,7 +137,7 @@ module.exports = function(grunt) {
     if(grunt.option('prod')) {
       // add your production server task here
     } else {
-      grunt.task.run([ 'server-dev' ]);
+      grunt.task.run([ 'serve' ]);
     }
   });
 
