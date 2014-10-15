@@ -1,5 +1,5 @@
 {
-  "name": "hashtag-sentiment",
+  "name": "twitter-sentiment",
   "version": "0.0.1",
   "main": "server.js",
   "repository": "",
