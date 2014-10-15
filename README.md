@@ -1,6 +1,6 @@
-# Twitter Sentiment
+# Twitter Senticolor
 
-[#sentiment](http://hashtag-sentiment.azurewebsites.net/)
+[Twitter Senticolor](http://hashtag-sentiment.azurewebsites.net/)
 
 Just enter your search term and hit enter.
 
